@@ -1,41 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import React from 'react'
 import {
   majorScale,
   Button,
-  Code,
   Heading,
-  Icon,
-  IconButton,
-  Link,
   Pane,
-  Paragraph,
-  Pre,
-  Spinner,
-  Strong,
-  Text,
   TextInput
 } from 'evergreen-ui'
 
-import { getDB } from '../database'
-import { useStateValue, actions, loadingState } from '../state'
-import formatDistance from 'date-fns/formatDistance'
-
-const colors = {
-   eventlog: '#47B881',
-   feed: '#14B5D0',
-   keyvalue: '#1070CA',
-   docstore: '#D9822B',
-   counter: '#735DD0',
-}
+import { useStateValue, actions } from '../state'
 
 function EventLogControls () {
-  const { programName, dbName } = useParams()
   const [appState, dispatch] = useStateValue()
-  const history = useHistory()
   const [value, setValue] = React.useState('')
-  const [entry, setEntry] = React.useState(null)
-  const [address] = React.useState(`/orbitdb/${programName}/${dbName}`)
 
   function handleValueChange (event) {
     setValue(event.target.value)

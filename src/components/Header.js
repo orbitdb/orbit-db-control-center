@@ -2,23 +2,14 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import {
   majorScale,
-  minorScale,
   Heading,
-  Icon,
   Link,
-  Menu,
   Pane,
-  Popover,
-  Position,
-  SearchInput,
-  Text
+  SearchInput
 } from 'evergreen-ui'
-
-import { actions, useStateValue } from '../state'
 
 function Header () {
   const history = useHistory()
-  const [appState, dispatch] = useStateValue()
 
   function handleKeyUp (event) {
     // TODO: Do not use "ENTER" key as the trigger, maybe onSubmit of a form

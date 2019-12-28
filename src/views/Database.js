@@ -1,20 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import {
   majorScale,
-  Button,
-  Code,
   Heading,
-  Icon,
   IconButton,
-  Link,
   Pane,
-  Paragraph,
   Pre,
   Spinner,
-  Strong,
-  Text,
-  TextInput
+  Text
 } from 'evergreen-ui'
 
 import LogStoreControls from '../components/LogStoreControls'
@@ -23,8 +16,7 @@ import DocumentStoreControls from '../components/DocumentStoreControls'
 import CounterStoreControls from '../components/CounterStoreControls'
 
 import { getDB } from '../database'
-import { useStateValue, actions, loadingState } from '../state'
-import formatDistance from 'date-fns/formatDistance'
+import { useStateValue, actions } from '../state'
 
 const colors = {
    eventlog: '#47B881',
@@ -38,14 +30,9 @@ function ProgramView () {
   const { programName, dbName } = useParams()
   const [appState, dispatch] = useStateValue()
   const history = useHistory()
-  const [value, setValue] = React.useState('')
   const [entry, setEntry] = React.useState(null)
   const [loading, setLoading] = React.useState(false)
   const [address] = React.useState(`/orbitdb/${programName}/${dbName}`)
-
-  function handleValueChange (event) {
-    setValue(event.target.value)
-  }
 
   const handleSelect = (entry) => {
     setEntry(entry)
@@ -84,22 +71,7 @@ function ProgramView () {
     fetchDB(address)
     const program = appState.programs.find(p => p.payload.value.address === address)
     dispatch({ type: actions.PROGRAMS.SET_PROGRAM, program })
-  }, [dispatch, programName, dbName])
-
-  function renderDbType (db) {
-    if (db && db.type === 'eventlog') 
-      return 'EVENT LOG'
-    else if (db && db.type === 'feed') 
-      return 'FEED'
-    else if (db && db.type === 'keyvalue') 
-      return 'KEY-VALUE STORE'
-    else if (db && db.type === 'docstore') 
-      return 'DOCUMENT STORE'
-    else if (db && db.type === 'counter') 
-      return 'COUNTER'
-    else 
-      return ''
-  }
+  }, [dispatch, address, appState.programs])
 
   function renderProgram () {
     const program = appState.program ? appState.program.payload.value : null

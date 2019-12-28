@@ -1,13 +1,7 @@
 import IPFS from 'ipfs'
 import OrbitDB from 'orbit-db'
-import config from '../config'
 
-const get = async url => {
-  const response = await fetch(url)
-  const json = await response.json()
-  return json
-}
-
+// OrbitDB instance
 let orbitdb
 
 // Databases

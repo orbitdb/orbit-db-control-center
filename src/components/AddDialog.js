@@ -1,7 +1,6 @@
 import React from 'react'
 import { 
   Dialog, 
-  Select, 
   TextInput 
 } from 'evergreen-ui'
 

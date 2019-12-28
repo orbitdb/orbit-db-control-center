@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import { actions, loadingState, StateProvider } from './state'
 
-import Status from './components/Status'
+import Systems from './components/Systems'
 import Header from './components/Header'
 
 import DatabaseView from './views/Database'
@@ -30,21 +30,6 @@ function App () {
 
   const reducer = (state, action) => {
     switch (action.type) {
-      case actions.AUTH.OPEN_LOGIN_DIALOG:
-        return {
-          ...state,
-          loginDialogOpen: true
-        }
-      case actions.AUTH.CLOSE_LOGIN_DIALOG:
-        return {
-          ...state,
-          loginDialogOpen: false
-        }
-      case actions.AUTH.SET_USER:
-        return {
-          ...state,
-          user: action.user
-        }
       case actions.SYSTEMS.SET_ORBITDB:
         return {
           ...state,
@@ -110,7 +95,7 @@ function App () {
     <StateProvider initialState={initialState} reducer={reducer}>
       <Pane background='tint1' height='100%'>
         <Header />
-        <Status />
+        <Systems />
         <Switch>
           <Route path='/search'>
             <SearchResultsView />

@@ -1,27 +1,18 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
 import {
   majorScale,
   minorScale,
-  Heading,
   Icon,
   Link,
-  Menu,
   Pane,
-  Popover,
-  Position,
-  SearchInput,
-  Spinner,
   Text
 } from 'evergreen-ui'
 
 import { initIPFS, initOrbitDB, getAllDatabases } from '../database'
 import { actions, useStateValue } from '../state'
 
-function Status () {
-  const history = useHistory()
+function Systems () {
   const [appState, dispatch] = useStateValue()
-  const [loading, setLoading] = React.useState(false)
 
 
   React.useEffect(() => {
@@ -38,7 +29,7 @@ function Status () {
         dispatch({ type: actions.PROGRAMS.SET_PROGRAMS_LOADING, loading: false })
       })
     })
-  }, [])
+  }, [dispatch])
 
   const statusIconSize = 8
 
@@ -81,4 +72,4 @@ function Status () {
   )
 }
 
-export default Status
+export default Systems

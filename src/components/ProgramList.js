@@ -1,14 +1,12 @@
 import React from 'react'
 
 import { 
-  majorScale,
-  Button,
   IconButton,
   Table
  } from 'evergreen-ui'
 
 import { useHistory } from 'react-router-dom'
-import {formatDistanceToNow, formatRFC7231} from 'date-fns'
+import { formatDistanceToNow } from 'date-fns'
 
 const colors = {
    eventlog: '#47B881',
