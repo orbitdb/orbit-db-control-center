@@ -2,14 +2,13 @@ import React from 'react'
 import { Pane } from 'evergreen-ui'
 import { Route, Switch } from 'react-router-dom'
 
-import { actions, useStateValue, loadingState, StateProvider } from './state'
+import { actions, loadingState, StateProvider } from './state'
 
 import Status from './components/Status'
 import Header from './components/Header'
 
-import IndexView from './views/Index'
-import ProgramView from './views/Program'
-import MyProgramsView from './views/MyPrograms'
+import DatabaseView from './views/Database'
+import DatabasesView from './views/Databases'
 import SearchResultsView from './views/SearchResults'
 
 function App () {
@@ -17,6 +16,7 @@ function App () {
     user: null,
     loginDialogOpen: false,
     createDBDialogOpen: false,
+    addDBDialogOpen: false,
     programs: [],
     program: false,
     db: null,
@@ -86,41 +86,21 @@ function App () {
           ...state,
           createDBDialogOpen: false
         }
+      case actions.DB.OPEN_ADDDB_DIALOG:
+        return {
+          ...state,
+          addDBDialogOpen: true
+        }
+      case actions.DB.CLOSE_ADDDB_DIALOG:
+        return {
+          ...state,
+          addDBDialogOpen: false
+        }
       case actions.PROGRAMS.SET_PROGRAMS_LOADING:
         return {
           ...state,
           loading: { ...state.loading, programs: action.loading }
         }
-      // case actions.PROGRAMS.SET_POPULAR:
-      //   return {
-      //     ...state,
-      //     popularPrograms: action.popularPrograms
-      //   }
-      // case actions.PROGRAMS.SET_POPULAR_LOADING:
-      //   return {
-      //     ...state,
-      //     popularPrograms: loadingState
-      //   }
-      // case actions.PROGRAMS.SET_CATEGORIES:
-      //   return {
-      //     ...state,
-      //     categories: action.categories
-      //   }
-      // case actions.PROGRAMS.SET_CATEGORIES_LOADING:
-      //   return {
-      //     ...state,
-      //     categories: loadingState
-      //   }
-      // case actions.PROGRAMS.SET_STATS:
-      //   return {
-      //     ...state,
-      //     stats: action.stats
-      //   }
-      // case actions.PROGRAMS.SET_STATS_LOADING:
-      //   return {
-      //     ...state,
-      //     stats: loadingState
-      //   }
       default:
         return state
     }
@@ -136,13 +116,10 @@ function App () {
             <SearchResultsView />
           </Route>
           <Route path='/orbitdb/:programName/:dbName'>
-            <ProgramView />
-          </Route>
-          <Route path='/my-programs'>
-            <IndexView />
+            <DatabaseView />
           </Route>
           <Route path='/'>
-            <MyProgramsView />
+            <DatabasesView />
           </Route>
         </Switch>
       </Pane>

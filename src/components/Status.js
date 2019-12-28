@@ -15,7 +15,7 @@ import {
   Text
 } from 'evergreen-ui'
 
-import { initIPFS, initOrbitDB, getAllPrograms } from '../database'
+import { initIPFS, initOrbitDB, getAllDatabases } from '../database'
 import { actions, useStateValue } from '../state'
 
 function Status () {
@@ -25,18 +25,22 @@ function Status () {
 
 
   React.useEffect(() => {
+    dispatch({ type: actions.PROGRAMS.SET_PROGRAMS_LOADING, loading: true })
+
     initIPFS().then(async (ipfs) => {
       dispatch({ type: actions.SYSTEMS.SET_IPFS, ipfsStatus: 'Started'})
   
       initOrbitDB(ipfs).then(async (databases) => {
-        dispatch({ type: actions.PROGRAMS.SET_PROGRAMS_LOADING, loading: true })
-        const programs = await getAllPrograms()
         dispatch({ type: actions.SYSTEMS.SET_ORBITDB, orbitdbStatus: 'Started' })
+
+        const programs = await getAllDatabases()
         dispatch({ type: actions.PROGRAMS.SET_PROGRAMS, programs: programs.reverse() })
         dispatch({ type: actions.PROGRAMS.SET_PROGRAMS_LOADING, loading: false })
       })
     })
   }, [])
+
+  const statusIconSize = 8
 
   return (
     <Pane background='white' elevation={1}>
@@ -48,22 +52,28 @@ function Status () {
         paddingY={majorScale(1)}
       >
         <Link href='#/' textDecoration='none' display='flex' flexDirection='row'>
-          <Text fontWeight='700' marginRight={majorScale(1)}>Systems</Text>
-          <Text fontWeight='700'>|</Text>
+          <Text fontWeight='600' marginRight={minorScale(1)}>Systems:</Text>
           <Pane
             display='flex'
-            marginX={majorScale(1)}
+            alignItems='center'
+            marginX={minorScale(1)}
           >
-            <Text paddingRight={minorScale(1)}>IPFS: </Text>
-            <Text color={appState.ipfsStatus !== 'Started' ? 'warning' : 'success'}>{appState.ipfsStatus}</Text>
+            {appState.ipfsStatus === 'Started'
+              ? <Icon size={statusIconSize} icon='full-circle' color='success'/>
+              : <Icon size={statusIconSize} icon='full-circle' color='warning'/>
+            }
+            <Text paddingLeft={minorScale(2)}>IPFS</Text>
           </Pane>
-          <Text fontWeight='700'>|</Text>
           <Pane
             display='flex'
+            alignItems='center'
             marginX={majorScale(1)}
           >
-            <Text paddingRight={minorScale(1)}>OrbitDB: </Text>
-            <Text color={appState.orbitdbStatus !== 'Started' ? 'warning' : 'success'}>{appState.orbitdbStatus}</Text>
+            {appState.orbitdbStatus === 'Started'
+              ? <Icon size={statusIconSize} icon='full-circle' color='success'/>
+              : <Icon size={statusIconSize} icon='full-circle' color='warning'/>
+            }
+            <Text paddingLeft={minorScale(2)}>OrbitDB</Text>
           </Pane>
         </Link>
       </Pane>

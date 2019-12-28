@@ -4,7 +4,7 @@ UI for managing [OrbitDB](https://github.com/orbitdb/orbit-db) databases.
 
 <img width="80%" src="https://raw.githubusercontent.com/haadcode/orbit-db-control-center/master/screenshot.png"/>
 
-**Run the [Control Center](https://gateway.pinata.cloud/ipfs/QmQ1xiVTRZhxRAvW6YEwmYyFfFb6rJim3S27MdFND5C7pF/) in your browser**
+**Run the [Control Center](https://gateway.pinata.cloud/ipfs/QmQjGSJ3MJho7CTySsyno5qi6J8GQCaVGPLq6Dn73gDBDH) in your browser**
 
 or
 

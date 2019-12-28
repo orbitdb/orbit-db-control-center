@@ -11,20 +11,20 @@ import {
 
 import { useStateValue, actions } from '../state'
 
-import { getProgram, getAllPrograms, addProgram, removeProgram, createProgram } from '../database'
+import { getAllDatabases, addDatabase, removeDatabase, createDatabase } from '../database'
 
 import ProgramList from '../components/ProgramList'
 import CreateDialog from '../components/CreateDialog'
+import AddDialog from '../components/AddDialog'
 
-function MyProgramsView () {
+function DatabasesView () {
   const [appState, dispatch] = useStateValue()
-  const [loading, setLoading] = React.useState(false)
 
-  async function fetchPrograms () {
-    // dispatch({ type: actions.PROGRAMS.SET_PROGRAMS_LOADING, loading: true })
-    const programs = await getAllPrograms()
+  async function fetchDatabases () {
+    dispatch({ type: actions.PROGRAMS.SET_PROGRAMS_LOADING, loading: true })
+    const programs = await getAllDatabases()
     dispatch({ type: actions.PROGRAMS.SET_PROGRAMS, programs: programs.reverse() })
-    // dispatch({ type: actions.PROGRAMS.SET_PROGRAMS_LOADING, loading: false })
+    dispatch({ type: actions.PROGRAMS.SET_PROGRAMS_LOADING, loading: false })
     return programs
   }
 
@@ -32,49 +32,39 @@ function MyProgramsView () {
     dispatch({ type: actions.DB.OPEN_CREATEDB_DIALOG })
   }
 
-  const createDatabase = (args) => {
+  const createDB = (args) => {
     console.log("Create database...", args)
-    createProgram(args.name, args.type).then((hash) => {
+    createDatabase(args.name, args.type).then((hash) => {
       console.log("Created", hash)
-      fetchPrograms().then((data) => {
-        console.log("Loaded4", data)
+      fetchDatabases().then((data) => {
+        console.log("Loaded programs", data)
       })
     })
   }
 
-  const handleAddDatabase = () => {
-    console.log("Add database...")
-    // TODO
+  const handleAddDatabase = (args) => {
+    dispatch({ type: actions.DB.OPEN_ADDDB_DIALOG })
+  }
+
+  const addDB = (args) => {
+    console.log("Add database...", args)
+    addDatabase(args.address).then((hash) => {
+      console.log("Added", args.address)
+      fetchDatabases().then((data) => {
+        console.log("Loaded programs", data)
+      })
+    })
   }
 
   const handleRemoveDatabase = (hash, program) => {
     console.log("Remove database...", hash, program)
-    removeProgram(hash).then(() => {
+    removeDatabase(hash).then(() => {
       console.log("Removed")
-      fetchPrograms().then((data) => {
-        console.log("Loaded3", data)
+      fetchDatabases().then((data) => {
+        console.log("Loaded programs", data)
       })
     })
   }
-
-  React.useEffect(() => {
-    let canceled = false
-    setLoading(true)
-    fetchPrograms().then(data => {
-      if (!canceled) {
-        // setPrograms(data)
-        setLoading(false)
-        console.log("Loaded2", data)
-      }
-    })
-    return () => {
-
-      // setPrograms([])
-      setLoading(false)
-      console.log("Loaded1")
-      canceled = true
-    }
-  }, [])
 
   return (
     <>
@@ -116,21 +106,20 @@ function MyProgramsView () {
       </Button>
     </Pane>
     <Pane display='flex' justifyContent='center'>
-      <CreateDialog onCreate={createDatabase}/>
+      <CreateDialog onCreate={createDB}/>
+      <AddDialog onAdd={addDB}/>
       <Pane
         flex='1'
         elevation={1}
         background='white'
         marginX={majorScale(6)}
       >
-        {appState.user || true ? (
-          !loading && appState.orbitdbStatus === 'Started' ? (
-            <ProgramList 
+        {!appState.loading.programs 
+          ? (<ProgramList 
               programs={appState.programs}
               onRemove={handleRemoveDatabase}
-            />
-          ) : (
-            <Pane 
+            />)
+          : (<Pane
               display='flex' 
               flexDirection='column' 
               alignItems='center' 
@@ -139,17 +128,12 @@ function MyProgramsView () {
             >
               <Spinner size={24}/>
               <Text marginY={majorScale(1)}>Loading...</Text>
-            </Pane>
-          )
-        ) : (
-          <Pane display='flex' justifyContent='center' marginY={majorScale(6)}>
-            <Text>Please sign in</Text>
-          </Pane>
-        )}
+            </Pane>)
+        }
       </Pane>
     </Pane>
     </>
   )
 }
 
-export default MyProgramsView
+export default DatabasesView

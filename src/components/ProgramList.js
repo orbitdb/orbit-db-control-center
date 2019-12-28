@@ -44,10 +44,10 @@ function ProgramList ({ programs, onRemove }) {
               <Table.TextCell textProps={{ 
                 color: colors[program.type]
               }}>{program.type}</Table.TextCell>
-              <Table.TextCell flex='1 1 30%' isSelectable onSelect={() => handleSelect(program)}>{program.address.toString() ? program.address.toString() : program.address}</Table.TextCell>
+              <Table.TextCell flex='1 1 30%'>{program.address.toString() ? program.address.toString() : program.address}</Table.TextCell>
               <Table.TextCell>{program.added ? formatDistanceToNow(program.added) + ' ago': 'Unknown'}</Table.TextCell>
               <Table.Cell display='flex' flexDirection='row'>
-                <IconButton  appearance="minimal" icon="arrow-right" onClick={() => handleSelect(program)}/>
+                <IconButton  appearance="minimal" icon="database" onClick={() => handleSelect(program)}/>
                 <IconButton  appearance="minimal" icon="cross" intent="danger" onClick={() => onRemove(e.hash, program)}/>
               </Table.Cell>
             </Table.Row>

@@ -33,7 +33,7 @@ function CreateDialog ({ onCreate }) {
       isShown={appState.createDBDialogOpen}
       title='Create Database'
       onCloseComplete={() => dispatch({ type: actions.DB.CLOSE_CREATEDB_DIALOG })}
-      cancelLabel='Close'
+      cancelLabel='Cancel'
       confirmLabel='Create'
       onConfirm={close => handleSubmit(null, close)}
     >
@@ -47,7 +47,7 @@ function CreateDialog ({ onCreate }) {
           <span>Type:</span>
           <div>
             <Select onChange={handleTypeChange}>
-              <option value='eventlog' selected>Immutable Log</option>
+              <option value='eventlog' defaultValue>Immutable Log</option>
               <option value='feed'>A list of entries</option>
               <option value='keyvalue'>Key-Value Store</option>
               <option value='docstore'>Document Store</option>
