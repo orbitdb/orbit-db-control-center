@@ -105,17 +105,18 @@ function DatabasesView () {
         Open
       </Button>
     </Pane>
-    <Pane display='flex' justifyContent='center'>
+    <Pane display='flex' justifyContent='center' overflow='auto'>
       <CreateDialog onCreate={createDB}/>
       <AddDialog onAdd={addDB}/>
       <Pane
         flex='1'
+        overflow='auto'
         elevation={1}
         background='white'
         marginX={majorScale(6)}
       >
         {!appState.loading.programs 
-          ? (<ProgramList 
+          ? (<ProgramList
               programs={appState.programs}
               onRemove={handleRemoveDatabase}
             />)

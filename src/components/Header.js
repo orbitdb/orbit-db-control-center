@@ -31,7 +31,7 @@ function Header () {
         <Pane
           display='flex'
           flex='1 1 60%'
-          paddingX={majorScale(6)}
+          paddingLeft={majorScale(6)}
           paddingY={majorScale(1)}
           borderBottom='default'
         >
@@ -51,9 +51,14 @@ function Header () {
           flex='1 1 40%'
           alignItems='center'
           justifyContent='center'
-          paddingX={majorScale(6)}
+          paddingRight={majorScale(6)}
         >
-          <SearchInput placeholder='Search...' width='100%' onKeyUp={handleKeyUp} />
+          <SearchInput 
+            placeholder='Search...' 
+            height={24}
+            width='100%' 
+            onKeyUp={handleKeyUp} 
+          />
         </Pane>
       </Pane>
     </Pane>
