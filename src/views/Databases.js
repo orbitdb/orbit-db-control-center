@@ -13,7 +13,7 @@ import { useStateValue, actions } from '../state'
 
 import { getAllDatabases, addDatabase, removeDatabase, createDatabase } from '../database'
 
-import ProgramList from '../components/ProgramList'
+import ProgramList from '../components/DatabaseList'
 import CreateDialog from '../components/CreateDialog'
 import AddDialog from '../components/AddDialog'
 
@@ -74,7 +74,7 @@ function DatabasesView () {
         color='#425A70'
         size={700}
         textTransform='uppercase'
-        marginTop={majorScale(4)}
+        marginTop={majorScale(3)}
         marginBottom={majorScale(2)}
       >
         Databases
@@ -85,7 +85,7 @@ function DatabasesView () {
       flexDirection='row'
       marginX={majorScale(6)}
       marginTop={majorScale(2)}
-      marginBottom={majorScale(2)}
+      marginBottom={majorScale(1)}
     >
       <Button
         iconBefore='document'

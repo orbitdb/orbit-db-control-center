@@ -3,7 +3,7 @@ import { majorScale, Heading, Pane, Spinner } from 'evergreen-ui'
 import { useLocation, Redirect } from 'react-router-dom'
 import { useStateValue, actions, loadingState } from '../state'
 
-import ProgramList from '../components/ProgramList'
+import ProgramList from '../components/DatabaseList'
 
 function useQuery () {
   return new URLSearchParams(useLocation().search)

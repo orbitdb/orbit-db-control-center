@@ -51,7 +51,7 @@ function KeyValueStoreControls () {
         defaultValue={1}
         placeholder='amount'
         height={24}
-        width='5%'
+        width='10%'
       ></TextInput>
       <Button
         iconBefore='plus'

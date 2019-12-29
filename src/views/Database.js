@@ -51,20 +51,23 @@ function ProgramView () {
   const fetchDB = async (address) => {
     setLoading(true)
     const db = await getDB(address)
-    let entries
-    if (db.type === 'eventlog' || db.type === 'feed')
-      entries = await db.iterator({ limit: 10 }).collect().reverse()
-    else if (db.type === 'counter')
-      entries = [{ payload: { value: db.value } }]
-    else if (db.type === 'keyvalue')
-      entries = Object.keys(db.all).map(e => ({ payload: { value: {key: e, value: db.get(e)} } }))
-    else if (db.type === 'docstore')
-      entries = db.query(e => e !== null, {fullOp: true}).reverse()
-    else
-      entries = [{ payload: { value: "TODO" } }]
 
-    dispatch({ type: actions.DB.SET_DB, db, entries })
-    setLoading(false)
+    if (db) {
+      let entries
+      if (db.type === 'eventlog' || db.type === 'feed')
+        entries = await db.iterator({ limit: 10 }).collect().reverse()
+      else if (db.type === 'counter')
+        entries = [{ payload: { value: db.value } }]
+      else if (db.type === 'keyvalue')
+        entries = Object.keys(db.all).map(e => ({ payload: { value: {key: e, value: db.get(e)} } }))
+      else if (db.type === 'docstore')
+        entries = db.query(e => e !== null, {fullOp: true}).reverse()
+      else
+        entries = [{ payload: { value: "TODO" } }]
+
+      dispatch({ type: actions.DB.SET_DB, db, entries })
+      setLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -72,6 +75,22 @@ function ProgramView () {
     const program = appState.programs.find(p => p.payload.value.address === address)
     dispatch({ type: actions.PROGRAMS.SET_PROGRAM, program })
   }, [dispatch, address, appState.programs])
+
+  function getValuesTitle() {
+    const db = appState.program ? appState.program.payload.value : null
+    if (!db) return
+
+    if (db.type === 'eventlog' || db.type === 'feed')
+      return "Latest 10 entries"
+    else if (db.type === 'docstore')
+      return "All Documents"
+    else if (db.type === 'keyvalue')
+      return "Keys and Values"
+    else if (db.type === 'counter')
+      return "Count"
+    else
+      return <Text intent='danger'>No input controls found for '{db.type}'</Text>
+  }
 
   function renderProgram () {
     const program = appState.program ? appState.program.payload.value : null
@@ -94,21 +113,20 @@ function ProgramView () {
             : <Text>-</Text>
           }
         </Pane>
-        <Pane 
-          flex='1' 
-          paddingBottom={majorScale(2)}
+        <Pane
+          flex='1'
           marginBottom={majorScale(2)}
         >
           <Heading size={500}
             marginTop={majorScale(2)}
             marginBottom={majorScale(1)}
           >
-            Latest 10
+            {getValuesTitle()}
           </Heading>
           {loading
-            ? <Spinner 
-                size={majorScale(2)} 
-                delay={100} 
+            ? <Spinner
+                size={majorScale(2)}
+                delay={100}
                 marginY={majorScale(2)}
               />
             : appState.entries.map(e => {
@@ -158,8 +176,8 @@ function ProgramView () {
 
   return (
     <>
-    <Pane 
-      marginTop={majorScale(4)}
+    <Pane
+      marginTop={majorScale(3)}
       marginBottom={majorScale(2)}
       marginX={majorScale(1)}
       display='flex'
@@ -171,7 +189,7 @@ function ProgramView () {
         appearance='minimal'
         onClick={handleBack}
       />
-      <Heading  
+      <Heading
         marginLeft={majorScale(1)}
         display='flex'
         fontFamily='Titillium Web'
@@ -185,18 +203,23 @@ function ProgramView () {
     <Pane display='flex' justifyContent='center'>
       <Pane
         flex='1'
+        overflow='auto'
         elevation={1}
         background='white'
         marginX={majorScale(6)}
         padding={majorScale(4)}
       >
         <Pane borderBottom='default'>
-          <Heading size={500} marginBottom={majorScale(1)} borderBottom='default'>
+          <Heading size={500} marginBottom={majorScale(1)} borderBottom='default' overflow='auto'>
             /orbitdb/{programName}/{dbName}
           </Heading>
         </Pane>
-        {renderProgram()}
-        {appState.program ? (renderDatabaseControls()) : ''}
+        <Pane>
+          {renderProgram()}
+        </Pane>
+        <Pane>
+          {appState.program ? (renderDatabaseControls()) : ''}
+        </Pane>
       </Pane>
     </Pane>
   </>

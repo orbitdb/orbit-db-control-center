@@ -31,7 +31,7 @@ function Systems () {
     })
   }, [dispatch])
 
-  const statusIconSize = 8
+  const statusIconSize = 6
 
   return (
     <Pane background='white' elevation={1}>

@@ -18,13 +18,15 @@ function Header () {
 
   return (
     <Pane background='white' elevation={1}>
-      <Pane display='flex' flexDirection='row'>
+      <Pane 
+        className='row-wrap'
+        display='flex'
+        borderBottom='default'
+      >
         <Pane
+          className='align title'
           display='flex'
           flex='1 1 60%'
-          paddingLeft={majorScale(6)}
-          paddingY={majorScale(1)}
-          borderBottom='default'
         >
           <Link 
             href='#/' 
@@ -33,22 +35,24 @@ function Header () {
             flexDirection='row' 
             alignItems='center'
           >
-            <img src='Orbit_round-02.png' width={majorScale(4)}/>
-            <Heading size={800} fontFamily='Titillium Web' marginX={majorScale(2)}>CONTROL CENTER</Heading>
+            <img src='Orbit_round-02.png' width={majorScale(5)}/>
+            <Heading size={800} fontFamily='Titillium Web' marginX={majorScale(2)}>
+            CONTROL CENTER
+            </Heading>
           </Link>
         </Pane>
         <Pane
+          className='align search'
           display='flex'
-          flex='1 1 40%'
           alignItems='center'
           justifyContent='center'
-          paddingRight={majorScale(6)}
         >
-          <SearchInput 
-            placeholder='Search...' 
+          <SearchInput
+            width='100%'
+            flex='1 1 100%'
+            placeholder='Search...'
             height={24}
-            width='100%' 
-            onKeyUp={handleKeyUp} 
+            onKeyUp={handleKeyUp}
           />
         </Pane>
       </Pane>

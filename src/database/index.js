@@ -34,8 +34,11 @@ export const getAllDatabases = async () => {
 }
 
 export const getDB = async (address) => {
-  const db = await orbitdb.open(address)
-  await db.load()
+  let db
+  if (orbitdb) {
+    db = await orbitdb.open(address)
+    await db.load()
+  }
   return db
 }
 
