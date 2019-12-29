@@ -9,7 +9,7 @@ import {
 
 import { useStateValue, actions } from '../state'
 
-function LogStoreControls () {
+function FeedStoreControls () {
   const [appState, dispatch] = useStateValue()
   const [value, setValue] = React.useState('')
 
@@ -26,8 +26,8 @@ function LogStoreControls () {
   const addToDB = async () => {
     const db = appState.db
 
-    if (db.type !== 'eventlog') {
-      throw new Error('This component can only handle Log databases')
+    if (db.type !== 'feed') {
+      throw new Error('This component can only handle Feed databases')
     }
 
     await db.add(value)
@@ -40,11 +40,11 @@ function LogStoreControls () {
     <Pane
       flex='1'
     >
-      <Heading marginBottom={majorScale(1)}>Add an event to the log</Heading>
+      <Heading marginBottom={majorScale(1)}>Add an entry to the feed</Heading>
       <TextInput
         onChange={handleValueChange}
         name='value'
-        placeholder='Value'
+        placeholder='Data'
         height={24}
         width='30%'
       ></TextInput>
@@ -61,4 +61,4 @@ function LogStoreControls () {
   )
 }
 
-export default LogStoreControls
+export default FeedStoreControls

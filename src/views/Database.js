@@ -11,6 +11,7 @@ import {
 } from 'evergreen-ui'
 
 import LogStoreControls from '../components/LogStoreControls'
+import FeedStoreControls from '../components/FeedStoreControls'
 import KeyValueStoreControls from '../components/KeyValueStoreControls'
 import DocumentStoreControls from '../components/DocumentStoreControls'
 import CounterStoreControls from '../components/CounterStoreControls'
@@ -80,7 +81,9 @@ function ProgramView () {
     const db = appState.program ? appState.program.payload.value : null
     if (!db) return
 
-    if (db.type === 'eventlog' || db.type === 'feed')
+    if (db.type === 'eventlog')
+      return "Latest 10 events"
+    else if (db.type === 'feed')
       return "Latest 10 entries"
     else if (db.type === 'docstore')
       return "All Documents"
@@ -162,8 +165,10 @@ function ProgramView () {
     const db = appState.db
     if (!db) return
 
-    if (db.type === 'eventlog' || db.type === 'feed')
+    if (db.type === 'eventlog')
       return <LogStoreControls />
+    else if (db.type === 'feed')
+      return <FeedStoreControls />
     else if (db.type === 'docstore')
       return <DocumentStoreControls />
     else if (db.type === 'keyvalue')

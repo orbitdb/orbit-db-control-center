@@ -44,7 +44,7 @@ function KeyValueStoreControls () {
     <Pane
       flex='1'
     >
-      <Heading marginBottom={majorScale(1)}>Increment the value of the counter database</Heading>
+      <Heading marginBottom={majorScale(1)}>Increment the value of the counter</Heading>
       <TextInput
         onChange={handleValueChange}
         name='value'

@@ -46,7 +46,7 @@ function KeyValueStoreControls () {
     <Pane
       flex='1'
     >
-      <Heading marginBottom={majorScale(1)}>Set a value for a key in the database</Heading>
+      <Heading marginBottom={majorScale(1)}>Set a value for a key</Heading>
       <TextInput
         onChange={handleKeyChange}
         name='key'

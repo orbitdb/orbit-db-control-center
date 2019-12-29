@@ -1,5 +1,6 @@
 import IPFS from 'ipfs'
 import OrbitDB from 'orbit-db'
+import Config from '../config'
 
 // OrbitDB instance
 let orbitdb
@@ -9,7 +10,7 @@ let programs
 
 // Start IPFS
 export const initIPFS = async () => {
-  return await IPFS.create()
+  return await IPFS.create(Config.ipfs)
 }
 
 // Start OrbitDB
