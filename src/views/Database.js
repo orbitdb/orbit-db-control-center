@@ -109,9 +109,16 @@ function ProgramView () {
             : <Text>-</Text>
           }
         </Pane>
+        <Pane flex='1'_>
+          <Text>Permissions:</Text>
+          {appState.db
+            ? <pre>{appState.db.access.write}</pre>
+            : <Text>-</Text>
+          }
+        </Pane>
         <Pane flex='1' flexDirection='row'>
           <Text>Entries: </Text>
-          {appState.db 
+          {appState.db
             ? <Text>{appState.db._oplog.length}</Text>
             : <Text>-</Text>
           }
