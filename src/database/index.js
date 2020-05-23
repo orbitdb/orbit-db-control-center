@@ -53,9 +53,21 @@ export const addDatabase = async (address) => {
   })
 }
 
-export const createDatabase = async (name, type) => {
-  const db = await orbitdb.create(name, type)
-  return programs.add({ 
+export const createDatabase = async (name, type, permissions) => {
+  let accessController
+
+  switch (permissions) {
+    case 'public':
+      accessController = { write: ['*'] }
+      break
+    default:
+      accessController = { write: [orbitdb.identity.id] }
+      break
+  }
+
+  const db = await orbitdb.create(name, type, { accessController })
+
+  return programs.add({
     name,
     type,
     address: db.address.toString(),
