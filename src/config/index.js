@@ -5,7 +5,7 @@ const config = {
     },
     config: {
       Addresses: {
-        Swarm: ['/dns4/ws-star.discovery.libp2p.io/tcp/443/wss/p2p-websocket-star']
+        Swarm: ['/dns4/wrtc-star1.par.dwebops.pub/tcp/443/wss/p2p-webrtc-star']
       }
     }
   }
