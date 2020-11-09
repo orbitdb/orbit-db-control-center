@@ -10,6 +10,7 @@ import Header from './components/Header'
 import DatabaseView from './views/Database'
 import DatabasesView from './views/Databases'
 import SearchResultsView from './views/SearchResults'
+import SettingsView from './views/Settings'
 
 function App () {
   const initialState = {
@@ -102,6 +103,9 @@ function App () {
           </Route>
           <Route path='/orbitdb/:programName/:dbName'>
             <DatabaseView />
+          </Route>
+          <Route path='/settings'>
+            <SettingsView />
           </Route>
           <Route path='/'>
             <DatabasesView />

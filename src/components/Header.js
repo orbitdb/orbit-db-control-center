@@ -54,6 +54,7 @@ function Header () {
             height={24}
             onKeyUp={handleKeyUp}
           />
+          <Link href='#/settings'>Settings</Link>
         </Pane>
       </Pane>
     </Pane>
