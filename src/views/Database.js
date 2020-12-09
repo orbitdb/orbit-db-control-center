@@ -35,8 +35,8 @@ function ProgramView () {
   const [loading, setLoading] = React.useState(false)
   const [address] = React.useState(`/orbitdb/${programName}/${dbName}`)
 
-  const handleSelect = (entry) => {
-    setEntry(entry)
+  const handleSelect = (e) => {
+    setEntry(e !== entry ? e : null)
   }
 
   const handleBack = () => {
@@ -155,7 +155,6 @@ function ProgramView () {
                             marginY={majorScale(1)}
                             paddingY={majorScale(1)}
                             backgroundColor='#FEF8E7'
-                            onClick={() => handleSelect(null)}
                           >{JSON.stringify(e, null, 2)}</Pre>
                         : ''}
                     </Pane>
