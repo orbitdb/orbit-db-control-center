@@ -141,25 +141,25 @@ function ProgramView () {
               />
             : appState.entries.map(e => {
                 return (
-                  <>
-                  <Pane key={e.hash + '-1'}>
-                    <Text key={e.hash + '-2'} userSelect='none' cursor='pointer' onClick={() => handleSelect(e)}>{JSON.stringify(e.payload.value, null, 2)}</Text>
-                  </Pane>
-                  <Pane key={e.hash + '-3'}>
-                    {entry && entry.hash === e.hash
-                      ? <Pre
-                          key={entry.hash}
-                          maxWidth={majorScale(96)}
-                          overflow='auto'
-                          fontFamily='Source Code Pro'
-                          marginY={majorScale(1)}
-                          paddingY={majorScale(1)}
-                          backgroundColor='#FEF8E7'
-                          onClick={() => handleSelect(null)}
-                        >{JSON.stringify(e, null, 2)}</Pre>
-                      : ''}
-                  </Pane>
-                  </>
+                  <div key={e.hash}>
+                    <Pane key={e.hash + '-1'}>
+                      <Text key={e.hash + '-2'} userSelect='none' cursor='pointer' onClick={() => handleSelect(e)}>{JSON.stringify(e.payload.value, null, 2)}</Text>
+                    </Pane>
+                    <Pane key={e.hash + '-3'}>
+                      {entry && entry.hash === e.hash
+                        ? <Pre
+                            key={entry.hash}
+                            maxWidth={majorScale(96)}
+                            overflow='auto'
+                            fontFamily='Source Code Pro'
+                            marginY={majorScale(1)}
+                            paddingY={majorScale(1)}
+                            backgroundColor='#FEF8E7'
+                            onClick={() => handleSelect(null)}
+                          >{JSON.stringify(e, null, 2)}</Pre>
+                        : ''}
+                    </Pane>
+                  </div>
                 )
               })
           }
