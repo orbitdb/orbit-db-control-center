@@ -109,7 +109,7 @@ function ProgramView () {
             : <Text>-</Text>
           }
         </Pane>
-        <Pane flex='1'_>
+        <Pane flex='1'>
           <Text>Permissions:</Text>
           {appState.db
             ? <pre>{appState.db.access.write}</pre>
