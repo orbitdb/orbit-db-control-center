@@ -31,12 +31,12 @@ function ProgramView () {
   const { programName, dbName } = useParams()
   const [appState, dispatch] = useStateValue()
   const history = useHistory()
-  const [entry, setEntry] = React.useState(null)
+  const [index, setIndex] = React.useState(null)
   const [loading, setLoading] = React.useState(false)
   const [address] = React.useState(`/orbitdb/${programName}/${dbName}`)
 
-  const handleSelect = (e) => {
-    setEntry(e !== entry ? e : null)
+  const handleSelect = (idx) => {
+    setIndex(idx !== index ? idx : null)
   }
 
   const handleBack = () => {
@@ -140,14 +140,14 @@ function ProgramView () {
                 marginY={majorScale(2)}
               />
             : appState.entries.map((e, idx) => {
-                console.log(e)
+                idx += 1
                 return (
                   <div key={idx}>
                     <Pane>
-                      <Text userSelect='none' cursor='pointer' onClick={() => handleSelect(e)}>{JSON.stringify(e.payload.value, null, 2)}</Text>
+                      <Text userSelect='none' cursor='pointer' onClick={() => handleSelect(idx)}>{JSON.stringify(e.payload.value, null, 2)}</Text>
                     </Pane>
                     <Pane>
-                      {entry && entry.hash === e.hash
+                      {index && idx === index
                         ? <Pre
                             maxWidth={majorScale(96)}
                             overflow='auto'
