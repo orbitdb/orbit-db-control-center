@@ -139,16 +139,16 @@ function ProgramView () {
                 delay={100}
                 marginY={majorScale(2)}
               />
-            : appState.entries.map(e => {
+            : appState.entries.map((e, idx) => {
+                console.log(e)
                 return (
-                  <div key={e.hash}>
-                    <Pane key={e.hash + '-1'}>
-                      <Text key={e.hash + '-2'} userSelect='none' cursor='pointer' onClick={() => handleSelect(e)}>{JSON.stringify(e.payload.value, null, 2)}</Text>
+                  <div key={idx}>
+                    <Pane>
+                      <Text userSelect='none' cursor='pointer' onClick={() => handleSelect(e)}>{JSON.stringify(e.payload.value, null, 2)}</Text>
                     </Pane>
-                    <Pane key={e.hash + '-3'}>
+                    <Pane>
                       {entry && entry.hash === e.hash
                         ? <Pre
-                            key={entry.hash}
                             maxWidth={majorScale(96)}
                             overflow='auto'
                             fontFamily='Source Code Pro'
