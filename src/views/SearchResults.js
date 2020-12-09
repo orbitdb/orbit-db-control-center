@@ -3,6 +3,8 @@ import { majorScale, Heading, Pane, Spinner } from 'evergreen-ui'
 import { useLocation, Redirect } from 'react-router-dom'
 import { useStateValue, actions, loadingState } from '../state'
 
+import { getAllDatabases, removeDatabase } from '../database'
+
 import ProgramList from '../components/DatabaseList'
 
 function useQuery () {
@@ -24,6 +26,24 @@ function SearchResultsView () {
     )
   }
 
+  async function fetchDatabases () {
+    dispatch({ type: actions.PROGRAMS.SET_PROGRAMS_LOADING, loading: true })
+    const programs = await getAllDatabases()
+    dispatch({ type: actions.PROGRAMS.SET_PROGRAMS, programs: programs.reverse() })
+    dispatch({ type: actions.PROGRAMS.SET_PROGRAMS_LOADING, loading: false })
+    return programs
+  }
+
+  const handleRemoveDatabase = (hash, program) => {
+    console.log("Remove database...", hash, program)
+    removeDatabase(hash).then(() => {
+      console.log("Removed")
+      fetchDatabases().then((data) => {
+        console.log("Loaded programs", data)
+      })
+    })
+  }
+
   return (
     <Pane display='flex' justifyContent='center'>
       <Pane
@@ -38,7 +58,9 @@ function SearchResultsView () {
             {programs.length} programs found
           </Heading>
         </Pane>
-        {programs !== loadingState ? <ProgramList programs={programs} /> : <Spinner marginX='auto' marginY={120} />}
+        {programs !== loadingState
+          ? <ProgramList programs={programs} onRemove={handleRemoveDatabase} />
+          : <Spinner marginX='auto' marginY={120} />}
       </Pane>
     </Pane>
   )
