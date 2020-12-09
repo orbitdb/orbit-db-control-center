@@ -13,9 +13,16 @@ function SearchResultsView () {
   const [appState, dispatch] = useStateValue()
 
   const query = useQuery().get('q')
-  const queryOk = query.length >= 2
+  const queryOk = query.length >= 1
 
   if (!queryOk) return <Redirect to='/' />
+
+  let programs = appState.programs
+  if (query) {
+    programs = programs.filter(({ payload: { value: { name, type, address } } }) =>
+      name.includes(query) || type.includes(query) || address.toString().includes(query)
+    )
+  }
 
   return (
     <Pane display='flex' justifyContent='center'>
@@ -28,10 +35,10 @@ function SearchResultsView () {
       >
         <Pane borderBottom='default'>
           <Heading size={600} marginBottom={majorScale(1)}>
-            {appState.programs.length} programs found
+            {programs.length} programs found
           </Heading>
         </Pane>
-        {appState.programs !== loadingState ? <ProgramList programs={appState.programs} /> : <Spinner marginX='auto' marginY={120} />}
+        {programs !== loadingState ? <ProgramList programs={programs} /> : <Spinner marginX='auto' marginY={120} />}
       </Pane>
     </Pane>
   )
