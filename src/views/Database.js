@@ -104,7 +104,7 @@ function ProgramView () {
         </Pane>
         <Pane flex='1' >
           <Text>Type: </Text>
-          {program 
+          {program
             ? <Text color={colors[program.type]}>{program.type}</Text>
             : <Text>-</Text>
           }
