@@ -2,7 +2,7 @@
 
 > UI for managing [OrbitDB](https://github.com/orbitdb/orbit-db) databases.
 
-**Run the [Control Center](https://ipfs.io/ipfs/QmPoqRhSX2rMy6NR7Y3pnkC2z1kK9TH9fZa6wyfXLEptw9) in your browser.**
+**Run the [Control Center](https://ipfs.io/ipfs/QmUtrVBEFCG5K8MWxkEq81H2SDTLwetRxjggCKMS9zivfK/) in your browser.**
 
 <img width="80%" src="https://raw.githubusercontent.com/orbitdb/orbit-db-control-center/master/screenshot1.png"/>
 

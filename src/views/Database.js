@@ -31,12 +31,12 @@ function ProgramView () {
   const { programName, dbName } = useParams()
   const [appState, dispatch] = useStateValue()
   const history = useHistory()
-  const [entry, setEntry] = React.useState(null)
+  const [index, setIndex] = React.useState(null)
   const [loading, setLoading] = React.useState(false)
   const [address] = React.useState(`/orbitdb/${programName}/${dbName}`)
 
-  const handleSelect = (entry) => {
-    setEntry(entry)
+  const handleSelect = (idx) => {
+    setIndex(idx !== index ? idx : null)
   }
 
   const handleBack = () => {
@@ -104,12 +104,12 @@ function ProgramView () {
         </Pane>
         <Pane flex='1' >
           <Text>Type: </Text>
-          {program 
+          {program
             ? <Text color={colors[program.type]}>{program.type}</Text>
             : <Text>-</Text>
           }
         </Pane>
-        <Pane flex='1'_>
+        <Pane flex='1'>
           <Text>Permissions:</Text>
           {appState.db
             ? <pre>{appState.db.access.write}</pre>
@@ -139,27 +139,26 @@ function ProgramView () {
                 delay={100}
                 marginY={majorScale(2)}
               />
-            : appState.entries.map(e => {
+            : appState.entries.map((e, idx) => {
+                idx += 1
                 return (
-                  <>
-                  <Pane key={e.hash + '-1'}>
-                    <Text key={e.hash + '-2'} userSelect='none' cursor='pointer' onClick={() => handleSelect(e)}>{JSON.stringify(e.payload.value, null, 2)}</Text>
-                  </Pane>
-                  <Pane key={e.hash + '-3'}>
-                    {entry && entry.hash === e.hash
-                      ? <Pre
-                          key={entry.hash}
-                          maxWidth={majorScale(96)}
-                          overflow='auto'
-                          fontFamily='Source Code Pro'
-                          marginY={majorScale(1)}
-                          paddingY={majorScale(1)}
-                          backgroundColor='#FEF8E7'
-                          onClick={() => handleSelect(null)}
-                        >{JSON.stringify(e, null, 2)}</Pre>
-                      : ''}
-                  </Pane>
-                  </>
+                  <div key={idx}>
+                    <Pane>
+                      <Text userSelect='none' cursor='pointer' onClick={() => handleSelect(idx)}>{JSON.stringify(e.payload.value, null, 2)}</Text>
+                    </Pane>
+                    <Pane>
+                      {index && idx === index
+                        ? <Pre
+                            maxWidth={majorScale(96)}
+                            overflow='auto'
+                            fontFamily='Source Code Pro'
+                            marginY={majorScale(1)}
+                            paddingY={majorScale(1)}
+                            backgroundColor='#FEF8E7'
+                          >{JSON.stringify(e, null, 2)}</Pre>
+                        : ''}
+                    </Pane>
+                  </div>
                 )
               })
           }

@@ -14,8 +14,8 @@
   "dependencies": {
     "baseui": "^9.34.0",
     "evergreen-ui": "^4.21.5",
-    "ipfs": "^0.40.0",
-    "orbit-db": "^0.23.0",
+    "ipfs": "^0.49.0",
+    "orbit-db": "^0.25.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
