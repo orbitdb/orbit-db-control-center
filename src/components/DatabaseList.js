@@ -1,11 +1,14 @@
 import React from 'react'
 
 import {
-  majorScale,
   minorScale,
+  CrossIcon,
+  DatabaseIcon,
+  EyeOpenIcon,
   Icon,
   IconButton,
-  Table
+  Table,
+  TrashIcon
 } from 'evergreen-ui'
 
 import { useHistory } from 'react-router-dom'
@@ -33,9 +36,9 @@ function ProgramList ({ programs, onRemove }) {
           flex='1 1 2%'
           textAlign='center'
           padding={minorScale(2)}
-          alignItems='baseline'
+          alignItems='center'
         >
-          <Icon size={majorScale(2)} icon='eye-open'/>
+          <Icon icon={EyeOpenIcon} />
         </Table.TextHeaderCell>
         <Table.TextHeaderCell flex='1 1 10%' paddingX={0}>Name</Table.TextHeaderCell>
         <Table.TextHeaderCell flex='1 1 5%' paddingX={minorScale(1)}>Type</Table.TextHeaderCell>
@@ -45,9 +48,9 @@ function ProgramList ({ programs, onRemove }) {
           flex='1 1 2%'
           textAlign='center'
           padding={minorScale(2)}
-          alignItems='baseline'
+          alignItems='center'
         >
-          <Icon size={12} icon='trash'/>
+          <Icon size={12} icon={TrashIcon} />
         </Table.TextHeaderCell>
       </Table.Head>
       <Table.Body>
@@ -64,7 +67,7 @@ function ProgramList ({ programs, onRemove }) {
               >
                 <IconButton
                   appearance='minimal'
-                  icon='database'
+                  icon={DatabaseIcon}
                   margin={0}
                   padding={0}
                   onClick={() => handleSelect(program)}
@@ -85,7 +88,7 @@ function ProgramList ({ programs, onRemove }) {
               >
                 <IconButton
                   appearance='minimal'
-                  icon='cross'
+                  icon={CrossIcon}
                   intent='danger'
                   margin={0}
                   padding={0}

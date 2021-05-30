@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import {
   majorScale,
+  ArrowLeftIcon,
   Heading,
   IconButton,
   Pane,
@@ -196,7 +197,7 @@ function ProgramView () {
       alignItems='baseline'
     >
       <IconButton
-        icon='arrow-left'
+        icon={ArrowLeftIcon}
         appearance='minimal'
         onClick={handleBack}
       />
