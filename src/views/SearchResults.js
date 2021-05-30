@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { majorScale, Heading, Pane, Spinner } from 'evergreen-ui'
 import { useLocation, Redirect } from 'react-router-dom'
 import { useStateValue, actions, loadingState } from '../state'
