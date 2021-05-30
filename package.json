@@ -22,7 +22,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.3.0",
     "styletron-engine-atomic": "^1.4.4",
-    "styletron-react": "^5.2.6"
+    "styletron-react": "^6.0.1"
   },
   "eslintConfig": {
     "extends": "react-app"
