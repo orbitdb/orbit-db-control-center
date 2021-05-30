@@ -35,7 +35,7 @@ function Header () {
             flexDirection='row' 
             alignItems='center'
           >
-            <img src='Orbit_round-02.png' width={majorScale(5)}/>
+            <img alt="" src='Orbit_round-02.png' width={majorScale(5)}/>
             <Heading size={800} fontFamily='Titillium Web' marginX={majorScale(2)}>
             CONTROL CENTER
             </Heading>
