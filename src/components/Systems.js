@@ -2,10 +2,10 @@ import React from 'react'
 import {
   majorScale,
   minorScale,
-  Icon,
   Link,
   Pane,
-  Text
+  Text,
+  StatusIndicator
 } from 'evergreen-ui'
 
 import { initIPFS, initOrbitDB, getAllDatabases } from '../database'
@@ -20,7 +20,7 @@ function Systems () {
 
     initIPFS().then(async (ipfs) => {
       dispatch({ type: actions.SYSTEMS.SET_IPFS, ipfsStatus: 'Started'})
-  
+
       initOrbitDB(ipfs).then(async (databases) => {
         dispatch({ type: actions.SYSTEMS.SET_ORBITDB, orbitdbStatus: 'Started' })
 
@@ -31,9 +31,8 @@ function Systems () {
     })
   }, [dispatch])
 
-  const statusIconSize = 6
-
   return (
+
     <Pane background='white' elevation={1}>
       <Pane 
         display='flex'
@@ -50,10 +49,9 @@ function Systems () {
             marginX={minorScale(1)}
           >
             {appState.ipfsStatus === 'Started'
-              ? <Icon size={statusIconSize} icon='full-circle' color='success'/>
-              : <Icon size={statusIconSize} icon='full-circle' color='warning'/>
+              ? <StatusIndicator color="success">IPFS</StatusIndicator>
+              : <StatusIndicator color="warning">IPFS</StatusIndicator>
             }
-            <Text paddingLeft={minorScale(2)}>IPFS</Text>
           </Pane>
           <Pane
             display='flex'
@@ -61,10 +59,9 @@ function Systems () {
             marginX={majorScale(1)}
           >
             {appState.orbitdbStatus === 'Started'
-              ? <Icon size={statusIconSize} icon='full-circle' color='success'/>
-              : <Icon size={statusIconSize} icon='full-circle' color='warning'/>
+              ? <StatusIndicator color="success">OrbitDB</StatusIndicator>
+              : <StatusIndicator color="warning">OrbitDB</StatusIndicator>
             }
-            <Text paddingLeft={minorScale(2)}>OrbitDB</Text>
           </Pane>
         </Link>
       </Pane>
