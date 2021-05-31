@@ -2,7 +2,6 @@ import React from 'react'
 import {
   majorScale,
   minorScale,
-  Link,
   Pane,
   Text,
   StatusIndicator
@@ -11,15 +10,16 @@ import {
 import { initIPFS, initOrbitDB, getAllDatabases } from '../database'
 import { actions, useStateValue } from '../state'
 
+import ConnectToWalletButton from './ConnectToWalletButton'
+
 function Systems () {
   const [appState, dispatch] = useStateValue()
-
 
   React.useEffect(() => {
     dispatch({ type: actions.PROGRAMS.SET_PROGRAMS_LOADING, loading: true })
 
     initIPFS().then(async (ipfs) => {
-      dispatch({ type: actions.SYSTEMS.SET_IPFS, ipfsStatus: 'Started'})
+      dispatch({ type: actions.SYSTEMS.SET_IPFS, ipfsStatus: 'Started' })
 
       initOrbitDB(ipfs).then(async (databases) => {
         dispatch({ type: actions.SYSTEMS.SET_ORBITDB, orbitdbStatus: 'Started' })
@@ -32,38 +32,35 @@ function Systems () {
   }, [dispatch])
 
   return (
-
     <Pane background='white' elevation={1}>
-      <Pane 
+      <Pane
         display='flex'
-        flexDirection='column'
+        flexDirection='row'
         alignItems='left'
         paddingX={majorScale(6)}
         paddingY={majorScale(1)}
       >
-        <Link href='#/' textDecoration='none' display='flex' flexDirection='row'>
-          <Text fontWeight='600' marginRight={minorScale(1)}>Systems:</Text>
-          <Pane
+        <Pane display='flex' flexDirection='row' width='100%'>
+          <Text
             display='flex'
             alignItems='center'
-            marginX={minorScale(1)}
+            fontWeight='600'
+            marginRight={minorScale(1)}
           >
-            {appState.ipfsStatus === 'Started'
-              ? <StatusIndicator color="success">IPFS</StatusIndicator>
-              : <StatusIndicator color="warning">IPFS</StatusIndicator>
-            }
-          </Pane>
-          <Pane
-            display='flex'
-            alignItems='center'
-            marginX={majorScale(1)}
-          >
-            {appState.orbitdbStatus === 'Started'
-              ? <StatusIndicator color="success">OrbitDB</StatusIndicator>
-              : <StatusIndicator color="warning">OrbitDB</StatusIndicator>
-            }
-          </Pane>
-        </Link>
+            Systems:
+          </Text>
+          {
+            appState.ipfsStatus === 'Started'
+              ? <StatusIndicator color='success'>IPFS</StatusIndicator>
+              : <StatusIndicator color='warning'>IPFS</StatusIndicator>
+          }
+          {
+            appState.orbitdbStatus === 'Started'
+              ? <StatusIndicator color='success'>OrbitDB</StatusIndicator>
+              : <StatusIndicator color='warning'>OrbitDB</StatusIndicator>
+          }
+          <ConnectToWalletButton style={{ marginLeft: 'auto' }} />
+        </Pane>
       </Pane>
     </Pane>
   )
