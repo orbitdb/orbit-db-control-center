@@ -13,12 +13,13 @@ function CreateDialog ({ onCreate }) {
   const [name, setName] = React.useState('')
   const [type, setType] = React.useState('eventlog')
   const [permissions, setPermissions] = React.useState('creator')
+  const [iam, setIam] = React.useState('ipfs')
 
   function handleSubmit (event) {
     if (event) event.preventDefault()
     if (name.length === 0) return
     console.log('Create:', name, type, permissions)
-    onCreate({ name, type, permissions })
+    onCreate({ name, type, permissions, iam })
     dispatch({ type: actions.DB.CLOSE_CREATEDB_DIALOG })
   }
 
@@ -32,6 +33,10 @@ function CreateDialog ({ onCreate }) {
 
   function handlePermissionsChange (event) {
     setPermissions(event.target.value)
+  }
+
+  function handleIamChange (event) {
+    setIam(event.target.value)
   }
 
   return (
@@ -59,6 +64,13 @@ function CreateDialog ({ onCreate }) {
             <option value='keyvalue'>Key-Value Store</option>
             <option value='docstore'>Document Store</option>
             <option value='counter'>Counter (CRDT)</option>
+          </Select>
+        </FormField>
+        <FormField label="Access Controller / Identity Provider">
+          <Select onChange={handleIamChange}>
+            <option value="ipfs" defaultValue>IPFS</option>
+            <option value="orbitdb">OrbitDB</option>
+            <option value="ethereum">Ethereum</option>
           </Select>
         </FormField>
         <FormField label='Write Permissions'>

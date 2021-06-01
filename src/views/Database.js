@@ -20,6 +20,8 @@ import CounterStoreControls from '../components/CounterStoreControls'
 import { getDB } from '../database'
 import { useStateValue, actions } from '../state'
 
+import CID from 'cids'
+
 const colors = {
    eventlog: '#47B881',
    feed: '#14B5D0',
@@ -35,6 +37,7 @@ function ProgramView () {
   const [index, setIndex] = React.useState(null)
   const [loading, setLoading] = React.useState(false)
   const [address] = React.useState(`/orbitdb/${programName}/${dbName}`)
+  const [ac, setAc] = React.useState('loading... ')
 
   const handleSelect = (idx) => {
     setIndex(idx !== index ? idx : null)
@@ -50,9 +53,17 @@ function ProgramView () {
     }
   }
 
+  const _getAccessController = async (db) => {
+    const manifest = (await db?._ipfs.dag.get(new CID(db.address.root)))?.value
+    const ac = (await db?._ipfs.dag.get(new CID(manifest.accessController.substring(6))))?.value
+    setAc(JSON.stringify(ac))
+  }
+
   const fetchDB = async (address) => {
     setLoading(true)
     const db = await getDB(address)
+
+    const ac = await _getAccessController(db)
 
     if (db) {
       let entries
@@ -123,6 +134,10 @@ function ProgramView () {
             ? <pre>{appState.db.identity.type}</pre>
             : <Text>-</Text>
           }
+        </Pane>
+        <Pane flex='1'>
+          <Text>Access Controller:</Text>
+          <pre>{ac}</pre>
         </Pane>
         <Pane flex='1' flexDirection='row'>
           <Text>Entries: </Text>

@@ -34,7 +34,7 @@ function DatabasesView () {
 
   const createDB = (args) => {
     console.log("Create database...", args)
-    createDatabase(args.name, args.type, args.permissions).then((hash) => {
+    createDatabase(args.name, args.type, args.permissions, args.iam).then((hash) => {
       console.log("Created", hash)
       fetchDatabases().then((data) => {
         console.log("Loaded programs", data)
