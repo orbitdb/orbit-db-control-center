@@ -117,6 +117,13 @@ function ProgramView () {
             : <Text>-</Text>
           }
         </Pane>
+        <Pane flex='1'>
+          <Text>Identity Provider:</Text>
+          {appState.db
+            ? <pre>{appState.db.identity.type}</pre>
+            : <Text>-</Text>
+          }
+        </Pane>
         <Pane flex='1' flexDirection='row'>
           <Text>Entries: </Text>
           {appState.db
