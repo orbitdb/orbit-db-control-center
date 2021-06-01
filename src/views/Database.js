@@ -76,7 +76,7 @@ function ProgramView () {
     fetchDB(address)
     const program = appState.programs.find(p => p.payload.value.address === address)
     dispatch({ type: actions.PROGRAMS.SET_PROGRAM, program })
-  }, [dispatch, address, appState.programs])
+  }, [dispatch, address, appState.programs]) // eslint-disable-line
 
   function getValuesTitle() {
     const db = appState.program ? appState.program.payload.value : null
