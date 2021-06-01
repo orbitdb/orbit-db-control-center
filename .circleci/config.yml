@@ -7,7 +7,7 @@ executors:
       - image: circleci/node:lts-browsers
 
 jobs:
-  setup:
+  build:
     executor: lts-browsers
     steps:
       - checkout
@@ -15,14 +15,14 @@ jobs:
       - run: make clean
       - run: npm install
       - run: npm run build
-      - run: cp -R src conf node_modules test package.json /tmp/workspace
+      - run: cp -R jestEnv.js src public node_modules package.json /tmp/workspace
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
             - src
             - node_modules
-            - test
-            - conf
+            - public
+            - jestEnv.js
             - package.json
   test:
     executor: lts-browsers
@@ -35,7 +35,7 @@ workflows:
   version: 2
   Tests:
     jobs:
-      - setup
+      - build
       - test:
           requires:
-            - setup
+            - build
