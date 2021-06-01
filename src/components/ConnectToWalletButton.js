@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Button } from 'evergreen-ui'
-
-function truncateAddress (address) {
-  return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`
-}
-
-function isMetaMask () { return window.ethereum?.isMetaMask }
+import { truncateAddress, isMetaMask } from '../utils'
 
 function ConnectToWalletButton (props) {
   const [address, setAddress] = useState(window.ethereum?.selectedAddress)
