@@ -64,7 +64,7 @@ function CreateDialog ({ onCreate }) {
         <FormField label='Write Permissions'>
           <Select onChange={handlePermissionsChange}>
             <option value='creator'>Creator-only: Only you can write, public read</option>
-            <option value='public'>Public: Anybody can write and write</option>
+            <option value='public'>Public: Anybody can read and write</option>
           </Select>
         </FormField>
       </form>
